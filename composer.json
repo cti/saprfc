@@ -1,0 +1,14 @@
+{
+    "name": "nekufa/saprfc",
+    "authors": [
+        {
+            "name": "Dmitry.Krokhin",
+            "email": "nekufa@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nekufa\\SapRfc\\" : "src/"
+        }
+    }
+}
