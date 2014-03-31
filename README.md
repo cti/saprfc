@@ -1,5 +1,4 @@
 # SapRfc library
-[![Build Status](https://travis-ci.org/nekufa/saprfc.svg?branch=1.0.1)](https://travis-ci.org/nekufa/saprfc)
 
 This component is wrapper for native saprfc extension (saprfc.sourceforge.net).  
 Library do function module reverse-engeneering and provides only one method to do all tasks.  
