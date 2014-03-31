@@ -65,12 +65,12 @@ class Gateway implements GatewayInterface
 
     /**
      * @param string $name
-     * @param array $import
-     * @param array $export
+     * @param array $request
+     * @param array $responseKeys
      * @throws Exception
      * @return object
      */
-    public function execute($name, $import, $export)
+    public function execute($name, $request, $responseKeys)
     {
         $start = microtime(1);
 
@@ -80,7 +80,7 @@ class Gateway implements GatewayInterface
             throw new Exception("Error discovering " . $name, 1);
         }
 
-        foreach ($import as $k => $v) {
+        foreach ($request as $k => $v) {
             if (is_array($v)) {
                 foreach ($v as $index => $row) {
                     if (is_object($row)) {
@@ -92,7 +92,7 @@ class Gateway implements GatewayInterface
                     saprfc_table_insert($fce, $k, $row, $index + 1);
                 }
             } else {
-                saprfc_import($fce, $k, $this->encodeString($v));
+                saprfc_request($fce, $k, $this->encodeString($v));
             }
         }
 
@@ -101,9 +101,9 @@ class Gateway implements GatewayInterface
         if ($result != SAPRFC_OK) {
             $message = isset($this->errors[$result]) ? $this->errors[$result] : 'Unknown error';
             if ($this->profiler) {
-                $this->profiler->register(array(
+                $this->profiler->register((object) array(
                     'name' => $name,
-                    'import' => $import,
+                    'request' => $request,
                     'success' => false,
                     'message' => $message,
                     'time' => microtime(1) - $start,
@@ -112,17 +112,17 @@ class Gateway implements GatewayInterface
             throw new Exception($message);
         }
 
-        $result = array();
-        foreach ($export as $table) {
+        $response = array();
+        foreach ($responseKeys as $table) {
 
             $count = saprfc_table_rows($fce, $table);
 
             if ($count == -1) {
-                // export param
+                // responseKeys param
                 $data = $this->decodeString(saprfc_export($fce, $table));
 
             } else {
-                // export table
+                // responseKeys table
                 $data = array();
                 for ($i = 1; $i <= $count; $i++) {
                     $row = saprfc_table_read($fce, $table, $i);
@@ -132,20 +132,20 @@ class Gateway implements GatewayInterface
                     $data[] = (object)$row;
                 }
             }
-            $result[$table] = $data;
+            $response[$table] = $data;
         }
 
         if ($this->profiler) {
-            $this->profiler->register(array(
+            $this->profiler->register((object) array(
                 'name' => $name,
-                'import' => $import,
-                'export' => $export,
+                'request' => (object) $request,
+                'response' => (object) $response,
                 'success' => true,
                 'time' => microtime(1) - $start,
             ));
         }
 
-        return (object)$result;
+        return (object) $response;
     }
 
     /**

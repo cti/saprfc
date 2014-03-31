@@ -131,3 +131,48 @@ foreach($result->IT_RECIPE_LIST as $recipe) {
     echo $recipe->ID_RECIPE, ' ', $recipe->name, '<br/>';
 }
 ```
+
+# Profiling your requests
+
+Gateway interface provides profiler injection.  
+With this object you can analyze your call, time and memory usage.  
+
+```php
+<?php
+
+use Nekufa\SapRfc\Gateway;
+use Nekufa\SapRfc\Profiler;
+
+// params for saprfc_open
+// http://saprfc.sourceforge.net/src/saprfc.html#function.saprfc-open.html
+$connectionParams = array(
+    'USER' => 'USERNAME',
+    'PASSWD' => 'PASSWORD',
+    // ...
+);
+
+$sap = new Gateway($connectionParams);
+
+$sap->setProfiler(new Profiler());
+
+$name = 'FUNCTIONAL_MODULE_NAME';
+
+$request = array(
+    // ...
+);
+
+$response = array(
+    // ...
+);
+
+$result = $sap->execute($name, $request, $response);
+
+foreach($sap->getProfiler()->getData() as $call) {
+    echo $call->name;
+    var_dump($call->import);
+    var_dump($call->export);
+    echo $call->success ? 'success' : 'fail';
+    echo $call->time . ' seconds' ;
+}
+
+```

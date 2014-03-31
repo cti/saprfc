@@ -7,12 +7,12 @@ interface GatewayInterface
     /**
      * Execute function method
      * @param $name
-     * @param $import
-     * @param $export
+     * @param $request
+     * @param $responseKeys
      * @throws Exception
      * @return object
      */
-    public function execute($name, $import, $export);
+    public function execute($name, $request, $responseKeys);
 
     /**
      * Get debug information

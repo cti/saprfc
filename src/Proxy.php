@@ -53,16 +53,16 @@ class Proxy implements GatewayInterface
                 throw new Exception("Unknown method $method");
             }
 
-            $request = json_decode($params['request']);
-            if (!$request) {
-                throw new Exception("No valid request found");
+            $transaction = json_decode($params['transaction']);
+            if (!$transaction) {
+                throw new Exception("No valid transaction found");
             }
 
             if ($params['enableProfiler'] && !$sap->getProfiler()) {
                 $sap->setProfiler(new Profiler());
             }
 
-            $data = $sap->$method($request->name, $request->import, $request->export);
+            $data = $sap->$method($transaction->name, $transaction->request, $transaction->responseKeys);
             $result = array('data' => $data);
 
         } catch (Exception $e) {
@@ -77,12 +77,12 @@ class Proxy implements GatewayInterface
 
     /**
      * @param $name
-     * @param $import
-     * @param $export
+     * @param $request
+     * @param $responseKeys
      * @throws Exception
      * @return object
      */
-    public function execute($name, $import, $export)
+    public function execute($name, $request, $responseKeys)
     {
         $text = file_get_contents($this->url, false, stream_context_create(array(
             'http' => array(
@@ -92,32 +92,32 @@ class Proxy implements GatewayInterface
                 'content' => http_build_query(array(
                     'method' => 'execute',
                     'enableProfiler' => $this->profiler != null,
-                    'request' => json_encode(array(
+                    'transaction' => json_encode(array(
                         'name' => $name,
-                        'import' => $import,
-                        'export' => $export,
+                        'request' => $request,
+                        'responseKeys' => $responseKeys,
                     )),
                     'extra' => json_encode($this->extra)
                 )),
             ),
         )));
-        $result = json_decode($text);
-        if (!$result) {
+        $response = json_decode($text);
+        if (!$response) {
             throw new Exception("Error Processing Request.<br/>" . $text);
-        } elseif (isset($result->exception)) {
-            throw new Exception($result->exception);
+        } elseif (isset($response->exception)) {
+            throw new Exception($response->exception);
         }
 
-        if (isset($result->profiler)) {
+        if (isset($response->profiler)) {
             if (!$this->profiler) {
                 $this->profiler = new Profiler();
             }
-            foreach ($result->profiler as $row) {
-                $this->profiler->register($row);
+            foreach ($response->profiler as $row) {
+                $this->profiler->register((object) $row);
             }
         }
 
-        return $result->data;
+        return $response->data;
     }
 
     /**
@@ -135,7 +135,7 @@ class Proxy implements GatewayInterface
                 'timeout' => $this->timeout,
                 'content' => http_build_query(array(
                     'method' => 'debug',
-                    'request' => json_encode(array(
+                    'transaction' => json_encode(array(
                         'name' => $name,
                     )),
                     'extra' => json_encode($this->extra)
