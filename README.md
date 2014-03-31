@@ -167,12 +167,19 @@ $response = array(
 
 $result = $sap->execute($name, $request, $response);
 
-foreach($sap->getProfiler()->getData() as $call) {
-    echo $call->name;
-    var_dump($call->import);
-    var_dump($call->export);
-    echo $call->success ? 'success' : 'fail';
-    echo $call->time . ' seconds' ;
+foreach($sap->getProfiler()->getData() as $transaction) {
+
+    echo $transaction->name;
+    var_dump($transaction->request);
+
+    if($transaction->success) {
+        var_dump($transaction->response);
+
+    } else {
+        echo 'FAIL: ', $transaction->message;
+    }
+
+    echo $transaction->time, ' seconds' ;
 }
 
 ```
