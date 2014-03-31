@@ -1,8 +1,23 @@
 # SapRfc library
+[![Latest Stable Version](https://poser.pugx.org/nekufa/saprfc/v/stable.png)](https://packagist.org/packages/nekufa/saprfc)
+[![Total Downloads](https://poser.pugx.org/nekufa/saprfc/downloads.png)](https://packagist.org/packages/nekufa/saprfc)
+[![License](https://poser.pugx.org/nekufa/saprfc/license.png)](https://packagist.org/packages/nekufa/saprfc)
 
 This component is wrapper for native saprfc extension (saprfc.sourceforge.net).  
 Function module reverse-engeneering and providing only one method to do all tasks.  
 You can write your code using GatewayInterface and then use proxy or direct connection.
+
+# Installation
+
+Using composer.
+
+```json
+{
+    "require": {
+        "nekufa/saprfc": "*"    
+    }
+}
+```
 
 
 # Basic usage
