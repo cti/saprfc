@@ -1,5 +1,7 @@
 {
     "name": "nekufa/saprfc",
+    "description": "Saprfc abstraction layer",
+    "license": "MIT",
     "authors": [
         {
             "name": "Dmitry.Krokhin",
