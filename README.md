@@ -1,7 +1,7 @@
 # SapRfc library
 
 This component is wrapper for native saprfc extension (saprfc.sourceforge.net).  
-Library do function module reverse-engeneering and provides only one method to do all tasks.  
+Function module reverse-engeneering and providing only one method to do all tasks.  
 You can write your code using GatewayInterface and then use proxy or direct connection.
 
 
