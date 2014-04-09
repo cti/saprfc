@@ -1,8 +1,8 @@
 <?php
 
-use Nekufa\SapRfc\Gateway;
-use Nekufa\SapRfc\Proxy;
-use Nekufa\SapRfc\Profiler;
+use Cti\SapRfc\Gateway;
+use Cti\SapRfc\Proxy;
+use Cti\SapRfc\Profiler;
 
 class SapRfcTests extends PHPUnit_Framework_TestCase
 {

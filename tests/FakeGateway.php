@@ -1,8 +1,8 @@
 <?php
 
-use Nekufa\SapRfc\Profiler;
+use Cti\SapRfc\Profiler;
 
-class FakeGateway implements Nekufa\SapRfc\GatewayInterface
+class FakeGateway implements Cti\SapRfc\GatewayInterface
 {
     protected $result;
 

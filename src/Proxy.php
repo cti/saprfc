@@ -1,11 +1,11 @@
 <?php
 
-namespace Nekufa\SapRfc;
+namespace Cti\SapRfc;
 
 class Proxy implements GatewayInterface
 {
     /**
-     * @var Nekufa\SapRfc\Profiler
+     * @var Cti\SapRfc\Profiler
      */
     private $profiler;
 
@@ -28,7 +28,7 @@ class Proxy implements GatewayInterface
 
     /**
      * @param string $url proxy url
-     * @return Nekufa\SapRfc\Proxy
+     * @return Cti\SapRfc\Proxy
      */
     public function setUrl($url) 
     {

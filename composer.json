@@ -1,5 +1,5 @@
 {
-    "name": "nekufa/saprfc",
+    "name": "cti/saprfc",
     "description": "Saprfc abstraction layer",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Nekufa\\SapRfc\\" : "src/"
+            "Cti\\SapRfc\\" : "src/"
         }
     },
     "require-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nekufa\SapRfc;
+namespace Cti\SapRfc;
 
 class Exception extends \Exception
 {
