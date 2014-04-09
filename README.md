@@ -1,9 +1,9 @@
 # SapRfc library
-[![Latest Stable Version](https://poser.pugx.org/nekufa/saprfc/v/stable.png)](https://packagist.org/packages/nekufa/saprfc)
-[![Total Downloads](https://poser.pugx.org/nekufa/saprfc/downloads.png)](https://packagist.org/packages/nekufa/saprfc)
-[![License](https://poser.pugx.org/nekufa/saprfc/license.png)](https://packagist.org/packages/nekufa/saprfc)
-[![Build Status](https://travis-ci.org/nekufa/saprfc.svg)](https://travis-ci.org/nekufa/saprfc)
-[![Coverage Status](https://coveralls.io/repos/nekufa/saprfc/badge.png)](https://coveralls.io/r/nekufa/saprfc)
+[![Latest Stable Version](https://poser.pugx.org/cti/saprfc/v/stable.png)](https://packagist.org/packages/cti/saprfc)
+[![Total Downloads](https://poser.pugx.org/cti/saprfc/downloads.png)](https://packagist.org/packages/cti/saprfc)
+[![License](https://poser.pugx.org/cti/saprfc/license.png)](https://packagist.org/packages/cti/saprfc)
+[![Build Status](https://travis-ci.org/cti/saprfc.svg)](https://travis-ci.org/cti/saprfc)
+[![Coverage Status](https://coveralls.io/repos/cti/saprfc/badge.png)](https://coveralls.io/r/cti/saprfc)
 
 
 This component is wrapper for native saprfc extension (saprfc.sourceforge.net).  
@@ -17,7 +17,7 @@ Using composer.
 ```json
 {
     "require": {
-        "nekufa/saprfc": "*"    
+        "cti/saprfc": "*"    
     }
 }
 ```
@@ -30,7 +30,7 @@ Server has saprfc extension and can connect to SAP R/3 (same network).
 ```php
 <?php
 
-use Nekufa\SapRfc\Gateway;
+use Cti\SapRfc\Gateway;
 
 // params for saprfc_open
 // http://saprfc.sourceforge.net/src/saprfc.html#function.saprfc-open.html
@@ -88,8 +88,8 @@ First server proxy.php file:
 ```php
 <?php
 
-use Nekufa\SapRfc\Gateway;
-use Nekufa\SapRfc\Proxy;
+use Cti\SapRfc\Gateway;
+use Cti\SapRfc\Proxy;
 
 // params for saprfc_open
 // http://saprfc.sourceforge.net/src/saprfc.html#function.saprfc-open.html
@@ -111,7 +111,7 @@ Second server request.php file:
 ```php
 <?php
 
-use Nekufa\SapRfc\Proxy;
+use Cti\SapRfc\Proxy;
 
 $request = array(
     // use import params
@@ -158,8 +158,8 @@ With this object you can analyze your call, time and memory usage.
 ```php
 <?php
 
-use Nekufa\SapRfc\Gateway;
-use Nekufa\SapRfc\Profiler;
+use Cti\SapRfc\Gateway;
+use Cti\SapRfc\Profiler;
 
 // params for saprfc_open
 // http://saprfc.sourceforge.net/src/saprfc.html#function.saprfc-open.html
